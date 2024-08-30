@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Crypto Rate Finder Rate</title>
+<style>
+	*{
+		font-size:70px;
+		font-family: Cambria;	
+	   }
+	body{
+		background-color: azure;
+	}
+	input[type=radio]{width:2%; height:0.5em;}
+</style>
+
+</head>
+
+<body>
+
+<center>
+
+<h1> Crypto Rate </h1>
+<form onsubmit= find()>
+	<input type="radio" name="c" id="btc" checked=true/>BTC
+	<input type="radio" name="c" id="doge" />DOGE
+	<input type="radio" name="c" id="eth"/>ETH
+	<br/><br/>
+
+	<input type="submit" value="Find Rates"/>
+	</form>
+<h2 id="msg">
+
+<script>
+ function find()
+{
+		event.preventDefault();
+		let btc = document.getElementById("btc");
+		let doge = document.getElementById("doge");
+		let eth = document.getElementById("eth");
+		let curr="";
+		
+		if(btc.checked)    curr="BTC";
+		else if(doge.checked)  curr="DOGE";
+		else 					curr="ETH";
+
+		let a1="https://api.coinlayer.com/live";
+		let a2="?access_key=42ac3d74e9537788a9d03d65dd322092";
+		let url= a1+a2;
+		
+		fetch(url)
+		.then(res=> res.json())
+		.then(data=> {
+			let r= data["rates"][curr];
+			msg.innerHTML="$"+r;
+			})
+			.catch(err=> msg.innerHTML="issue" +err);
+		}
+		</script>
+	</center>
+</body>
+
+
+		
+
+
+</html>
